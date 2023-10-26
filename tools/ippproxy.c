@@ -63,7 +63,7 @@ static cups_thread_t	jobs_thread;	/* Job proxy processing thread */
 static cups_thread_t	confUpdate_thread;	/* Job proxy processing thread */
 static cups_array_t	*jobs_lst;		/* Local jobs */
 #ifdef _WIN32
-static _cups_cond_t	jobs_cond = { CUPS_COND_INITIALIZER };
+static cups_cond_t	jobs_cond = { CUPS_COND_INITIALIZER };
 #else
 static cups_cond_t	jobs_cond = CUPS_COND_INITIALIZER;
 #endif
@@ -391,8 +391,8 @@ main(int  argc,				/* I - Number of command-line arguments */
   * Connect to the infrastructure printer...
   */
 
-  dest = cupsGetDestWithURI("infra", printer_uri);
-  //dest = cupsGetDestWithURI(NULL, printer_uri);
+  //dest = cupsGetDestWithURI("infra", printer_uri);
+  dest = cupsGetDestWithURI(NULL, printer_uri);
 
   if (verbosity){
     plogf(NULL, "Main thread connecting to '%s'.", printer_uri);
@@ -411,8 +411,8 @@ main(int  argc,				/* I - Number of command-line arguments */
 
   cupsFreeDests(1, dest);
 
-    dest = cupsGetDestWithURI("infra", notifications_uri);
-    //dest = cupsGetDestWithURI(NULL, notifications_uri);
+    //dest = cupsGetDestWithURI("infra", notifications_uri);
+    dest = cupsGetDestWithURI(NULL, notifications_uri);
 
     if (verbosity)
         plogf(NULL, "Main thread connecting to '%s'.", notifications_uri);
